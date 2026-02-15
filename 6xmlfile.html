@@ -1,0 +1,50 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>Read XML without Server</title> 
+<style> 
+body { 
+font-family: Arial; 
+margin: 30px; 
+} 
+.data-container { 
+border: 1px solid #aaa; 
+padding: 15px; 
+background: #f9f9f9; 
+margin-top: 10px; 
+} 
+</style> 
+</head> 
+<body>
+
+<h2>Load XML File</h2> 
+<input type="file" id="xmlFile" accept=".xml"> 
+<div id="output" class="data-container">No data loaded</div> 
+<script> 
+document.getElementById("xmlFile").addEventListener("change", function(event)  
+{ 
+const file = event.target.files[0]; 
+if (!file) return; 
+const reader = new FileReader(); 
+reader.onload = function(e)  
+{ 
+const xmlText = e.target.result; 
+const parser = new DOMParser(); 
+const xmlDoc = parser.parseFromString(xmlText, "text/xml"); 
+const books = xmlDoc.getElementsByTagName("book"); 
+const output = document.getElementById("output"); 
+output.innerHTML = ""; 
+for (let i = 0; i < books.length; i++)  
+{
+const title = books[i].getElementsByTagName("title")[0].textContent; 
+const author = books[i].getElementsByTagName("author")[0].textContent; 
+const year = books[i].getElementsByTagName("year")[0].textContent; 
+output.innerHTML += "<p><b>" + title + "</b> - " + 
+author + " (" + year + ")</p>";
+}
+}; 
+reader.readAsText(file); 
+}); 
+</script> 
+</body> 
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>Read JSON without Server</title> 
+<style> 
+body { 
+font-family: Arial; 
+margin: 30px; 
+} 
+.data-container { 
+border: 1px solid #aaa; 
+padding: 15px; 
+background: #f9f9f9; 
+margin-top: 10px; 
+} 
+</style> 
+</head> 
+<body> 
+<h2>Load JSON File</h2> 
+
+<input type="file" id="jsonFile" accept=".json"> 
+<div id="output" class="data-container">No data loaded</div> 
+<script> 
+document.getElementById("jsonFile").addEventListener("change", function (event) { 
+const file = event.target.files[0]; 
+if (!file) return; 
+const reader = new FileReader(); 
+reader.onload = function (e) { 
+
+const jsonText = e.target.result; 
+
+const data = JSON.parse(jsonText); 
+
+const books = data.library.books; 
+const output = document.getElementById("output"); 
+output.innerHTML = ""; 
+
+books.forEach((book, index) => { 
+output.innerHTML += ` 
+<p> 
+<b>${index + 1}. ${book.title}</b> - 
+${book.author} (${book.year}) 
+</p> 
+`; 
+}); 
+}; 
+reader.readAsText(file); 
+}); 
+</script> 
+</body> 
+</html> 

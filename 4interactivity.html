@@ -1,0 +1,59 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>Interactive Web Page</title> 
+<style> 
+body { 
+
+display: flex; 
+justify-content: center; 
+align-items: center; 
+min-height: 100vh; 
+} 
+.box{ 
+width: 350px; 
+} 
+input, select { 
+width: 100%; 
+margin: 8px 0; 
+padding: 6px; 
+} 
+</style> 
+</head> 
+<body> 
+<div class="box"> 
+<h2>Interactive Web Page Using JavaScript</h2> 
+<label>Select page background color:</label> 
+<input type="color" id="bgColor" oninput="changePageColor()"> 
+<label>Enter your name:</label> 
+<input type="text" id="username" oninput="showWelcome()" required> 
+<p id="welcome"></p> 
+<label>Select your course:</label> 
+<select id="course" onchange="showCourse()"> 
+<option value="">--Select--</option> 
+<option>MCA</option> 
+<option>BCA</option> 
+<option>B.Sc Data Science</option> 
+</select> 
+<p id="courseMsg"></p> 
+</div> 
+<script> 
+function showWelcome() { 
+let name = document.getElementById("username").value; 
+if (name !== "") { 
+document.getElementById("welcome").innerHTML = 
+"Welcome, " + name + "!"; 
+} 
+} 
+function showCourse() { 
+let course = document.getElementById("course").value; 
+document.getElementById("courseMsg").innerHTML = 
+"You selected: " + course; 
+} 
+function changePageColor() { 
+let color = document.getElementById("bgColor").value; 
+document.body.style.backgroundColor = color; 
+} 
+</script> 
+</body> 
+</html> 

@@ -1,0 +1,76 @@
+<!DOCTYPE html> 
+<html > 
+<head> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>Student Marks Analysis</title> 
+<style> 
+body { 
+font-family: Arial, sans-serif; 
+text-align: center; 
+margin: 20px; 
+} 
+#result { 
+margin-top: 20px; 
+font-size: 18px; 
+font-weight: bold; 
+} 
+button { 
+margin: 10px; 
+padding: 10px 20px; 
+font-size: 16px; 
+cursor: pointer; 
+} 
+input { 
+margin: 5px; 
+padding: 5px; 
+font-size: 16px; 
+} 
+</style> 
+</head> 
+<body> 
+ 
+<h2>Student Marks Analysis</h2> 
+<p>Enter marks separated by commas:</p> 
+<input type="text" id="marksInput" placeholder="e.g., 85, 90, 78, 88, 76"> 
+<button onclick="calculateMarks()">Show Results</button> 
+<div id="result"></div> 
+<script> 
+
+function inputMarks() { 
+let input = document.getElementById("marksInput").value; 
+let marks = input.split(",").map(num => parseFloat(num.trim())).filter(num => !isNaN(num)); 
+return marks; 
+} 
+
+function calculateAverage(marks) { 
+let sum = 0; 
+for (let i = 0; i < marks.length; i++) { 
+sum += marks[i]; 
+} 
+return marks.length ? sum / marks.length : 0; 
+} 
+
+function findHighLow(marks) { 
+return marks.length ? { highest: Math.max(...marks), lowest: Math.min(...marks) } : { highest: 
+"N/A", lowest: "N/A" }; 
+} 
+
+function calculateMarks() { 
+let studentMarks = inputMarks(); 
+if (studentMarks.length === 0) { 
+document.getElementById("result").innerHTML = "<p>Please enter valid marks.</p>"; 
+return; 
+} 
+let average = calculateAverage(studentMarks); 
+let { highest, lowest } = findHighLow(studentMarks); 
+
+document.getElementById("result").innerHTML = ` 
+<p>Student Marks: ${studentMarks.join(", ")}</p> 
+<p>Average Marks: ${average.toFixed(2)}</p> 
+<p>Highest Marks: ${highest}</p> 
+<p>Lowest Marks: ${lowest}</p> 
+`; 
+} 
+</script> 
+</body> 
+</html>
